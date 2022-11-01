@@ -137,7 +137,6 @@ Dynamic load balancing algorithms consider the state — like available resource
 The following are the different types of Dynamic Load Balancing algorithms:
 - Least Connection
 - Least Time
-- Resource-based
 
 1. Least Connection: This algorithm ensures that the requests are only sent to the server with the least number of active connections. This will ensure that a server is not overworked while there is another server with fewer active connections.
 
@@ -387,13 +386,11 @@ You should get the following output:
 ![wrrloadrun](https://user-images.githubusercontent.com/64500446/199351251-2b3aed91-ef0d-4a85-8c52-5d0702ae495f.png)
 
 
-Open your browser and send a request to `http://127.0.0.1:8080`
-You should get the following output:
+Open your browser and send a request to `http://127.0.0.1:8080`:
 
 [weigthedrounrobin.webm](https://user-images.githubusercontent.com/64500446/199351433-6d9ca410-75a9-4990-b522-6de1e7eb14a6.webm)
 
-
-
+As you would notice in the video above, the requests are distrbuted to the servers based on the weight assigned to each server.
 
 ### IP Hash Configuration
 
@@ -430,6 +427,7 @@ When we navigate to the `127.0.0.1:8080` in the browser, the same server will ke
 This is demonstrated in the video below:
 
 
+[IPHash.webm](https://user-images.githubusercontent.com/64500446/199352502-44df42e6-9bec-4437-8190-caf34ed235e4.webm)
 
 ## Dynamic Load Balancing Algorithms
 
@@ -465,6 +463,8 @@ You can build and run a new Nginx image with this configuration.
 
 The video illustration is shown below:
 
+[LeastConnection.webm](https://user-images.githubusercontent.com/64500446/199352585-32668481-87d5-42f8-a04c-0522c6801821.webm)
+
 
 ## Least Time Configuration
 
@@ -498,27 +498,27 @@ events {
 }
 
 ```
-The video description below shows:
+The video description below assumes all server have the same number of active connections:
 
-
-
+https://user-images.githubusercontent.com/64500446/199357110-ba5798ec-3789-496c-946d-9064fa2e6d85.mp4
 
 
 # Pros and Cons of Load Balancing
+
+
 
 In this section:
 I will discuss some of the advantages and performance benefits of Load Balancing
 I will also discuss some of the things that could go wrong and the possible solutions to them
 
 # Conclusion
+In this tutorial,we discussed:
+- Nginx as a load balancer
+- the static and dynamic loadbalancing algorithms
+- the Round Robin, Weigted Round Robin and the IP Hash load blancing algorithms from the static type
+- the Least connection and Least load balancing algorithms
+- We also configured this diffent types of algorithms as well as showed a video illustration of them.
+- Lastly, we discussed some of the pros and cons of this technique.
 
-
-
-
-
-
-
-
-
-
-[Weighted Round Robin](https://user-images.githubusercontent.com/64500446/199343606-dd29251b-3136-4e7f-aac0-a5e739ac1410.webm)
+The configuration and files used in this tutorial can be found in this [GitHub repository]()
+The configurations in this tutorial are minimal, there are several nginx directives that can be used to tweak the load balancing algorithms.
