@@ -73,13 +73,13 @@ Unlike other contexts, the main context doesn’t define an explicit block with 
 Nginx uses an asynchronous event-driven approach, rather than threads, to handle requests – [wikipedia](https://en.wikipedia.org/wiki/Nginx#cite_note-Welcome-21)
 The events context contains the directives that define how Nginx processes requests.
 Some of the directives that are specified in this context include:
-The number of connections per worker process
+- The number of connections per worker process
 
 ## The HTTP Context
 
 This context contains inner context and directives that determine how Nginx handles HTTP and HTTPS connections.
 When Nginx is configured as a load balancer, this context contains most of the directives and inner contexts that allow nginx to act as a load balancer. Some of the directives defined in this context include:
-The address of the pool of servers to balance the load across
+- The address of the pool of servers to balance the load across
 It also contains the server and upstream inner context.
 
 ### The Server Context
@@ -118,7 +118,7 @@ The following are the different types of static Load Balancing algorithms:
 - Weighted Round Robin
 - IP Hash
 
-1. Round Robin: In this algorithm, the load balancer distributes the load in a circular fashion without any priority or consideration for the processing capacity, number of active connections and available resources of the servers. This is the default load-balancing algorithm of Nginx.
+1. Round Robin: In this algorithm, the load balancer circularly distributes the load without any priority or consideration for the processing capacity, number of active connections and available resources of the servers. This is the default load-balancing algorithm of Nginx.
 ![RoundRobin](https://user-images.githubusercontent.com/64500446/199347403-cb17e8c5-05b3-4ae8-8dde-359951063f9d.png)
 
 2. Weighted Round Robin: This algorithm is similar to the Round Robin. However, the administrator can assign weight to each server based on criteria of their choosing. The loads are distributed while considering the weight assigned to each server in the pool of servers. This algorithm is suitable when the upstream servers have varying capacity profiles.
@@ -138,11 +138,10 @@ The following are the different types of Dynamic Load Balancing algorithms:
 - Least Connection
 - Least Time
 
-1. Least Connection: This algorithm ensures that the requests are only sent to the server with the least number of active connections. This will ensure that a server is not overworked while there is another server with fewer active connections.
+1. Least Connection: This algorithm distributes the client's request to servers with the least active connections at a particular time. This will ensure that no one server is overworked while other servers have fewer active connections.
 
 2. Least Time: This algorithm distributes requests to the servers based on the average response time of the servers and the number of active connections on the server. This load-balancing algorithm is only supported by Nginx plus.
 
-3. Resource Based: The server that processes a client request is determined by the available resources in the server at the time. Resources like CPU and memory of the server are majorly considered.
 
 # Configurations
 
@@ -157,7 +156,7 @@ We will create the servers with python’s [SimpleHTTPServer](https://docs.pytho
 ## Creating the Servers
 
 When you launch a server with the `SimpleHTTPServer` library:
--it loads up the `index.html` file in the directory in the browser if there is an `index.html` else
+- it loads up the `index.html` file in the directory in the browser if there is an `index.html` else
 - It displays the file directory of the current working directory.
 
 To show that the load balancing works, we will create three different `index.html` with different contents indicating which of the servers is serving the request. To do this, we will create different folders for these servers with their `index.html`.
@@ -302,7 +301,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 In the docker configuration above:
-We pulled an [alpine nginx rocker image image](https://hub.docker.com/_/nginx) from the docker hub.
+We pulled an [alpine nginx docker image](https://hub.docker.com/_/nginx) from the docker hub.
 We replaced the configuration in the `/etc/nginx/nginx.conf` with the *nginx.conf* file we created
 
 Build a docker image from this docker file:
@@ -358,7 +357,7 @@ events {
 }
 ```
 With this configuration:
-The first server will process 4 times the requests than that will be processed by the third server and 2 times requests that will be processed by the second server.
+The first server will process 4 times the requests that will be processed by the third server and 2 times the requests that will be processed by the second server.
 The second server will process 2 times the request that will be processed by the third server
 
  
@@ -390,11 +389,11 @@ Open your browser and send a request to `http://127.0.0.1:8080`:
 
 [weigthedrounrobin.webm](https://user-images.githubusercontent.com/64500446/199351433-6d9ca410-75a9-4990-b522-6de1e7eb14a6.webm)
 
-As you would notice in the video above, the requests are distrbuted to the servers based on the weight assigned to each server.
+As you would notice in the video above, the requests are distributed to the servers based on the weight assigned to each server.
 
 ### IP Hash Configuration
 
-This algorithm hashes the IP Address of the client and makes sure every request from this client is served by the same server. When this server is unavailable, the request from this client will  be served by another server.
+This algorithm hashes the IP Address of the client and makes sure every request from this client is served by the same server. When this server is unavailable, the request from this client will be served by another server.
 
 To configure this, add an `ip_hash` directive in the upstream context:
 
@@ -468,11 +467,11 @@ The video illustration is shown below:
 
 ## Least Time Configuration
 
-With this configuration, Nginx distributes requests to the servers based on the average response time as well as the number of active connections. In addition, different weights can be assigned to these servers depending on the capacity profile of the servers. If a weight is assigned to each server, The weight parameter will be taken into consideration alongside the average response time and the number of active connections.
+With this configuration, Nginx distributes requests to the servers based on the average response time as well as the number of active connections. In addition, different weights can be assigned to these servers depending on the capacity profile of the servers. If weight is assigned to each server, The weight parameter will be taken into consideration alongside the average response time and the number of active connections.
 
-This algorithm can ba configured by adding a `least_time` directive to the *upstream* context.
+This algorithm can be configured by adding a `least_time` directive to the *upstream* context.
 
-The average response time of the servers is either based on the time to receive the response header or the response body. This is controlled by the `header` and `last_byte` parameters in the `least_time` directive. There is a third option parameter called `inflight` that indicates whether the response time of all requests will be tracked or just the response for successful requests.
+The average response time of the servers is either based on the time to receive the response header or the response body. This is controlled by the `header` and `last_byte` parameters in the `least_time` directive. There is a third optional parameter called `inflight` that indicates whether the response time of all requests will be tracked or just the response for successful requests.
 
 The configuration below shows the *least_time* configuration that uses the average time of the response body to track the average response time. 
 ```
@@ -498,7 +497,7 @@ events {
 }
 
 ```
-The video description below assumes all server have the same number of active connections:
+The video description below assumes all servers have the same number of active connections:
 
 https://user-images.githubusercontent.com/64500446/199357110-ba5798ec-3789-496c-946d-9064fa2e6d85.mp4
 
@@ -506,19 +505,17 @@ https://user-images.githubusercontent.com/64500446/199357110-ba5798ec-3789-496c-
 # Pros and Cons of Load Balancing
 
 
-
 In this section:
 I will discuss some of the advantages and performance benefits of Load Balancing
 I will also discuss some of the things that could go wrong and the possible solutions to them
 
 # Conclusion
-In this tutorial,we discussed:
+In this tutorial, we discussed:
 - Nginx as a load balancer
-- the static and dynamic loadbalancing algorithms
-- the Round Robin, Weigted Round Robin and the IP Hash load blancing algorithms from the static type
-- the Least connection and Least load balancing algorithms
-- We also configured this diffent types of algorithms as well as showed a video illustration of them.
+- the static and dynamic load-balancing algorithms
+- the Round Robin, Weighted Round Robin and the IP Hash load balancing algorithms from the static type
+- the Least connection and Least load-balancing algorithms
+- We also configured these different types of algorithms as well as showed a video illustration of them.
 - Lastly, we discussed some of the pros and cons of this technique.
 
-The configuration and files used in this tutorial can be found in this [GitHub repository]()
-The configurations in this tutorial are minimal, there are several nginx directives that can be used to tweak the load balancing algorithms.
+The configuration and files used in this tutorial can be found in this [GitHub repository](https://github.com/DrAnonymousNet/Nginx-Configurations)
