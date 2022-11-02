@@ -315,7 +315,7 @@ Run the Nginx container from the docker image we just built:
 ```
 $ docker run --net:host loadbalancer
 ```
-The [--net=hos](https://docs.docker.com/network/host/) argument makes  the container’s application available on port 80 on the host’s IP address 
+The [--net=host](https://docs.docker.com/network/host/) argument makes  the container’s application available on port 80 on the host’s IP address 
 
 You should get the following output from the command above:
 ![dockerrunroundrobin_2](https://user-images.githubusercontent.com/64500446/199350471-3d01cec6-f388-4995-bd70-f7e0296e4298.png)
@@ -326,7 +326,8 @@ You should get the following output:
 
 
 As we notice, from the video demonstration above, the servers were picked in a circular fashion.
-[roundrobin.webm](https://user-images.githubusercontent.com/64500446/199350654-4d352600-6f62-4542-89c0-3a361ca74281.webm)
+
+<video src="https://user-images.githubusercontent.com/64500446/199350654-4d352600-6f62-4542-89c0-3a361ca74281.webm" data-canonical-src="https://user-images.githubusercontent.com/64500446/199350654-4d352600-6f62-4542-89c0-3a361ca74281.webm" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px;"></video>
 
 
 ### Weighted Round Robin
@@ -387,7 +388,7 @@ You should get the following output:
 
 Open your browser and send a request to `http://127.0.0.1:8080`:
 
-[weigthedrounrobin.webm](https://user-images.githubusercontent.com/64500446/199351433-6d9ca410-75a9-4990-b522-6de1e7eb14a6.webm)
+<video src="https://user-images.githubusercontent.com/64500446/199351433-6d9ca410-75a9-4990-b522-6de1e7eb14a6.webm" data-canonical-src="https://user-images.githubusercontent.com/64500446/199351433-6d9ca410-75a9-4990-b522-6de1e7eb14a6.webm" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px;"></video>
 
 As you would notice in the video above, the requests are distributed to the servers based on the weight assigned to each server.
 
@@ -425,8 +426,9 @@ When we navigate to the `127.0.0.1:8080` in the browser, the same server will ke
 
 This is demonstrated in the video below:
 
+<video src="https://user-images.githubusercontent.com/64500446/199352502-44df42e6-9bec-4437-8190-caf34ed235e4.webm" data-canonical-src="https://user-images.githubusercontent.com/64500446/199352502-44df42e6-9bec-4437-8190-caf34ed235e4.webm" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px;">
 
-[IPHash.webm](https://user-images.githubusercontent.com/64500446/199352502-44df42e6-9bec-4437-8190-caf34ed235e4.webm)
+  </video>
 
 ## Dynamic Load Balancing Algorithms
 
@@ -462,7 +464,7 @@ You can build and run a new Nginx image with this configuration.
 
 The video illustration is shown below:
 
-[LeastConnection.webm](https://user-images.githubusercontent.com/64500446/199352585-32668481-87d5-42f8-a04c-0522c6801821.webm)
+<video src="https://user-images.githubusercontent.com/64500446/199352585-32668481-87d5-42f8-a04c-0522c6801821.webm" data-canonical-src="https://user-images.githubusercontent.com/64500446/199352585-32668481-87d5-42f8-a04c-0522c6801821.webm" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px;"></video>
 
 
 ## Least Time Configuration
@@ -499,8 +501,7 @@ events {
 ```
 The video description below assumes all servers have the same number of active connections:
 
-https://user-images.githubusercontent.com/64500446/199357110-ba5798ec-3789-496c-946d-9064fa2e6d85.mp4
-
+<video src="https://user-images.githubusercontent.com/64500446/199364470-606ed16a-0c3e-4090-bd81-2b23c6fbe716.webm" data-canonical-src="https://user-images.githubusercontent.com/64500446/199364470-606ed16a-0c3e-4090-bd81-2b23c6fbe716.webm" controls="controls" muted="muted" class="d-block rounded-bottom-2 border-top width-fit" style="max-height:640px;"></video>
 
 # Pros and Cons of Load Balancing
 
